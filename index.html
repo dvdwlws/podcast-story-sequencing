@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cohesive Devices Exercise - A2 Level</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+        .subtitle {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        .exercise {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #667eea;
+            margin-top: 0;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .instructions {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e7f3ff;
+            border-radius: 5px;
+        }
+        .word {
+            background-color: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        input[type="text"] {
+            border: none;
+            border-bottom: 2px solid #667eea;
+            padding: 5px;
+            font-size: 16px;
+            width: 120px;
+            margin: 0 5px;
+            background-color: transparent;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-bottom: 2px solid #764ba2;
+        }
+        .story-segment {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            line-height: 1.8;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .reference-box {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 20px;
+        }
+        .reference-box h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .category-box {
+            background-color: #f8f9fa;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            min-height: 120px;
+            transition: all 0.3s;
+        }
+        .category-box h4 {
+            margin: 0 0 10px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #dee2e6;
+            font-size: 16px;
+        }
+        .category-box.drag-over {
+            border-color: #667eea;
+            background-color: #e7f3ff;
+        }
+        .draggable-word {
+            background-color: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: move;
+            user-select: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: transform 0.2s;
+        }
+        .draggable-word:hover {
+            transform: scale(1.05);
+        }
+        .draggable-word.dragging {
+            opacity: 0.5;
+        }
+        .drop-zone {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            min-height: 80px;
+        }
+        .dropped-word {
+            background-color: #764ba2;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎙️ Podcast Story Sequencing</h1>
+        <div class="subtitle">Practice Cohesive Devices - A2 Level</div>
+    </div>
+
+    <div class="exercise">
+        <h2>Exercise 1: Complete the Story</h2>
+        <div class="instructions">
+            <strong>📝 Instructions:</strong> Complete the podcast story using the words from the word bank. Each word can only be used once.
+        </div>
+        
+        <div class="word-bank">
+            <span class="word">First</span>
+            <span class="word">Then</span>
+            <span class="word">After</span>
+            <span class="word">But</span>
+            <span class="word">So</span>
+            <span class="word">Finally</span>
+        </div>
+
+        <div class="story-segment">
+            <p><strong>Podcast Host:</strong> "Let me tell you about my birthday party last week. <input type="text" id="q1" placeholder="Type here">, I woke up very early because I was excited.</p>
+            
+            <p><input type="text" id="q2" placeholder="Type here"> I opened my presents from my family. I got a new bike and some books.</p>
+            
+            <p><input type="text" id="q3" placeholder="Type here"> lunch, my friends came to my house. We played games in the garden.</p>
+            
+            <p><input type="text" id="q4" placeholder="Type here"> it started to rain! We were sad because we wanted to stay outside.</p>
+            
+            <p><input type="text" id="q5" placeholder="Type here"> we went inside and watched a funny movie together. We ate pizza and cake.</p>
+            
+            <p><input type="text" id="q6" placeholder="Type here">, at the end of the day, everyone went home. It was a great birthday!"</p>
+        </div>
+
+        <button onclick="checkAnswers()">Check Answers</button>
+        <div id="result1" class="result"></div>
+    </div>
+
+    <div class="exercise">
+        <h2>Exercise 2: Put the Story in Order</h2>
+        <div class="instructions">
+            <strong>🔢 Instructions:</strong> These sentences are mixed up! Number them from 1-6 to make a good story.
+        </div>
+
+        <div class="story-segment">
+            <input type="number" id="seq1" min="1" max="6" style="width: 50px;"> "Finally, I arrived at school. I was very tired but happy."
+        </div>
+
+        <div class="story-segment">
+            <input type="number" id="seq2" min="1" max="6" style="width: 50px;"> "First, I woke up late this morning. My alarm didn't ring!"
+        </div>
+
+        <div class="story-segment">
+            <input type="number" id="seq3" min="1" max="6" style="width: 50px;"> "After that, I ran to the bus stop. I didn't want to be late."
+        </div>
+
+        <div class="story-segment">
+            <input type="number" id="seq4" min="1" max="6" style="width: 50px;"> "But I missed the bus! It left one minute before I got there."
+        </div>
+
+        <div class="story-segment">
+            <input type="number" id="seq5" min="1" max="6" style="width: 50px;"> "So I called my dad. He drove me to school in his car."
+        </div>
+
+        <div class="story-segment">
+            <input type="number" id="seq6" min="1" max="6" style="width: 50px;"> "Then I quickly ate breakfast and got dressed. I was in a hurry!"
+        </div>
+
+        <button onclick="checkSequence()">Check Order</button>
+        <div id="result2" class="result"></div>
+    </div>
+
+    <div class="exercise">
+        <h2>Exercise 3: Sort the Words</h2>
+        <div class="instructions">
+            <strong>🎯 Instructions:</strong> Drag and drop each word into the correct box. Think about what each word means in a story.
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 20px 0;">
+            <div class="category-box" id="time" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h4>⏰ Time Order</h4>
+                <p style="font-size: 12px; color: #666; margin: 5px 0;">Shows when things happen</p>
+                <div class="drop-zone"></div>
+            </div>
+            <div class="category-box" id="contrast" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h4>❌ Opposite/Problem</h4>
+                <p style="font-size: 12px; color: #666; margin: 5px 0;">Shows something different</p>
+                <div class="drop-zone"></div>
+            </div>
+            <div class="category-box" id="reason" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h4>💡 Reason/Result</h4>
+                <p style="font-size: 12px; color: #666; margin: 5px 0;">Shows why or what happened</p>
+                <div class="drop-zone"></div>
+            </div>
+        </div>
+
+        <div class="instructions" style="background-color: #e7f3ff;">
+            <strong>Words to sort:</strong>
+            <div id="draggable-container" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="time">First</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="time">Then</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="time">After</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="time">Finally</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="time">Next</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="contrast">But</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="contrast">However</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="reason">So</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="reason">Because</div>
+            </div>
+        </div>
+
+        <button onclick="checkClassification()">Check Sorting</button>
+        <button onclick="resetClassification()" style="background: linear-gradient(135deg, #6c757d 0%, #495057 100%);">Reset</button>
+        <div id="result3" class="result"></div>
+    </div>
+
+    <div class="reference-box">
+        <h3>📚 Helpful Words for Stories</h3>
+        <p><strong>Time Order:</strong> First, Then, After, Next, Finally</p>
+        <p><strong>Opposite/Problem:</strong> But, However</p>
+        <p><strong>Reason/Result:</strong> So, Because</p>
+        <p><strong>Adding Information:</strong> And, Also, Too</p>
+    </div>
+
+    <script>
+        const answers = {
+            q1: 'first',
+            q2: 'then',
+            q3: 'after',
+            q4: 'but',
+            q5: 'so',
+            q6: 'finally'
+        };
+
+        const sequenceAnswers = [6, 1, 3, 4, 5, 2];
+
+        function checkAnswers() {
+            let correct = 0;
+            let total = 6;
+            
+            for (let i = 1; i <= 6; i++) {
+                const input = document.getElementById('q' + i);
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = answers['q' + i];
+                
+                if (userAnswer === correctAnswer) {
+                    correct++;
+                    input.style.borderBottom = '2px solid #28a745';
+                } else {
+                    input.style.borderBottom = '2px solid #dc3545';
+                }
+            }
+            
+            const result = document.getElementById('result1');
+            result.style.display = 'block';
+            
+            if (correct === total) {
+                result.className = 'result correct';
+                result.innerHTML = '✅ Perfect! You got all ' + correct + ' answers correct! Great job!';
+            } else {
+                result.className = 'result incorrect';
+                result.innerHTML = '❌ You got ' + correct + ' out of ' + total + ' correct. Try again!';
+            }
+        }
+
+        function checkSequence() {
+            let correct = 0;
+            let total = 6;
+            
+            for (let i = 1; i <= 6; i++) {
+                const input = document.getElementById('seq' + i);
+                const userAnswer = parseInt(input.value);
+                
+                if (userAnswer === sequenceAnswers[i-1]) {
+                    correct++;
+                    input.style.borderBottom = '2px solid #28a745';
+                } else {
+                    input.style.borderBottom = '2px solid #dc3545';
+                }
+            }
+            
+            const result = document.getElementById('result2');
+            result.style.display = 'block';
+            
+            if (correct === total) {
+                result.className = 'result correct';
+                result.innerHTML = '✅ Excellent! You put all the sentences in the right order!';
+            } else {
+                result.className = 'result incorrect';
+                result.innerHTML = '❌ You got ' + correct + ' out of ' + total + ' correct. Hint: Look at the words at the start - they tell you the order!';
+            }
+        }
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+            ev.currentTarget.classList.add('drag-over');
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.textContent);
+            ev.dataTransfer.setData("category", ev.target.getAttribute('data-category'));
+            ev.target.classList.add('dragging');
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            ev.currentTarget.classList.remove('drag-over');
+            
+            const data = ev.dataTransfer.getData("text");
+            const category = ev.dataTransfer.getData("category");
+            
+            const draggingElement = document.querySelector('.dragging');
+            if (draggingElement) {
+                draggingElement.classList.remove('dragging');
+            }
+            
+            let dropZone = ev.target;
+            if (!dropZone.classList.contains('drop-zone')) {
+                dropZone = dropZone.querySelector('.drop-zone');
+            }
+            
+            if (dropZone && draggingElement) {
+                const newWord = document.createElement('div');
+                newWord.className = 'dropped-word';
+                newWord.textContent = data;
+                newWord.setAttribute('data-category', category);
+                newWord.onclick = function() {
+                    const container = document.getElementById('draggable-container');
+                    const originalWord = document.createElement('div');
+                    originalWord.className = 'draggable-word';
+                    originalWord.textContent = data;
+                    originalWord.setAttribute('draggable', 'true');
+                    originalWord.setAttribute('data-category', category);
+                    originalWord.ondragstart = drag;
+                    container.appendChild(originalWord);
+                    this.remove();
+                };
+                dropZone.appendChild(newWord);
+                draggingElement.remove();
+            }
+        }
+
+        document.addEventListener('dragover', function(e) {
+            const target = e.target.closest('.category-box');
+            if (!target) {
+                document.querySelectorAll('.category-box').forEach(box => {
+                    box.classList.remove('drag-over');
+                });
+            }
+        });
+
+        document.addEventListener('dragleave', function(e) {
+            if (e.target.classList.contains('category-box')) {
+                e.target.classList.remove('drag-over');
+            }
+        });
+
+        function checkClassification() {
+            const categories = ['time', 'contrast', 'reason'];
+            let correct = 0;
+            let total = 0;
+            
+            categories.forEach(categoryId => {
+                const dropZone = document.querySelector(`#${categoryId} .drop-zone`);
+                const words = dropZone.querySelectorAll('.dropped-word');
+                
+                words.forEach(word => {
+                    total++;
+                    const wordCategory = word.getAttribute('data-category');
+                    if (wordCategory === categoryId) {
+                        correct++;
+                        word.style.backgroundColor = '#28a745';
+                    } else {
+                        word.style.backgroundColor = '#dc3545';
+                    }
+                });
+            });
+            
+            const result = document.getElementById('result3');
+            result.style.display = 'block';
+            
+            if (total === 0) {
+                result.className = 'result incorrect';
+                result.innerHTML = '⚠️ Please sort at least one word!';
+            } else if (correct === 9 && total === 9) {
+                result.className = 'result correct';
+                result.innerHTML = '✅ Perfect! You sorted all the words correctly! You understand what each word means!';
+            } else if (correct === total) {
+                result.className = 'result correct';
+                result.innerHTML = '✅ Great! You got ' + correct + ' out of ' + correct + ' correct! Try sorting the other words too.';
+            } else {
+                result.className = 'result incorrect';
+                result.innerHTML = '❌ You got ' + correct + ' out of ' + total + ' correct. Green words are correct, red words are in the wrong box. Try again!';
+            }
+        }
+
+        function resetClassification() {
+            const container = document.getElementById('draggable-container');
+            container.innerHTML = `
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="time">First</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="time">Then</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="time">After</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="time">Finally</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="time">Next</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="contrast">But</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="contrast">However</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="reason">So</div>
+                <div class="draggable-word" draggable="true" ondragstart="drag(event)" data-category="reason">Because</div>
+            `;
+            
+            document.querySelectorAll('.drop-zone').forEach(zone => {
+                zone.innerHTML = '';
+            });
+            
+            const result = document.getElementById('result3');
+            result.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
